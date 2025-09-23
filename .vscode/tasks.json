@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "app-build",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"-c",
+				"Debug",
+			],
+			"isBackground": false,
+			"problemMatcher": "$msCompile",
+		}
+	]
+}
