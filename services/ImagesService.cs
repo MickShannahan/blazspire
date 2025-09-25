@@ -1,16 +1,18 @@
 
+using System.Diagnostics;
 using blazspire.models;
 
-public class ImagesService(FetchService api)
+public class ImagesService(FetchService api, AppState appState)
 {
   private readonly FetchService api = api;
+  private readonly AppState appState = appState;
 
   async public Task GetInspiringImage(string collection = "noon")
   {
     try
     {
-      var response = await api.GetAsync<InspiringImage>("/api/images");
-      Console.WriteLine($"{response.Attributtion}");
+      var resImage = await api.GetAsync<InspiringImage>("api/images");
+      appState.Image = resImage;
     }
     catch (Exception e)
     {

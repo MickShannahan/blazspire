@@ -1,18 +1,31 @@
 ﻿@page "/"
 
 @inject ImagesService imageService
+@inject AppState appState
 
-<h1>Hello, world!</h1>
+<HeadContent>
+  <style>
+    :root {
+      --background-image: url(@appState.Image?.ImgUrls?.Full),
+        url(@appState.Image?.ImgUrls?.Regular),
+        url(@appState.Image?.ImgUrls?.Small);
+    }
+  </style>
+</HeadContent>
 
-Welcome to your new app.
+<div class="bg-shade @hideShade">
+</div>
 
 
 
 @code {
 
+  private string hideShade => appState.Image != null ? "hide" : "";
+
 
   protected override async Task OnInitializedAsync()
   {
+    appState.OnChange += StateHasChanged;
     await imageService.GetInspiringImage();
     await base.OnInitializedAsync();
   }

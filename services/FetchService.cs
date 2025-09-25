@@ -13,6 +13,8 @@ public class FetchService
   public FetchService(ApiSettings settings)
   {
     _httpClient = new HttpClient { BaseAddress = new Uri(settings.BaseUrl) };
+    // _httpClient = new HttpClient();
+    // baseUri = new Uri(settings.BaseUrl);
   }
 
   public void SetAuthorizationHeader(string token)

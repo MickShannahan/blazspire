@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:blazspire"
              xmlns:components="clr-namespace:blazspire.Components"
+             xmlns:blazorweb="clr-namespace:Microsoft.AspNetCore.Components.Web;assembly=Microsoft.AspNetCore.Components.Web"
              x:Class="blazspire.MainPage">
 
-    <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
+    <BlazorWebView x:Name="blazorWebView"
+            HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>
-            <RootComponent Selector="#app" ComponentType="{x:Type components:Routes}" />
+            <RootComponent Selector="head::after"
+                    ComponentType="{x:Type blazorweb:HeadOutlet}"/>
+            <RootComponent Selector="#app"
+                    ComponentType="{x:Type components:Routes}"/>
         </BlazorWebView.RootComponents>
     </BlazorWebView>
 
