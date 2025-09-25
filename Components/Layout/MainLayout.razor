@@ -1,10 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <main>
-
-        <article class="content px-4">
+<ErrorBoundary>
+    <ChildContent>
+        <main class="container-fluid text-light d-flex flex-column">
             @Body
-        </article>
-    </main>
-</div>
+        </main>
+    </ChildContent>
+    <ErrorContent>@context.Message</ErrorContent>
+    <ErrorContent>@context.StackTrace</ErrorContent>
+</ErrorBoundary>

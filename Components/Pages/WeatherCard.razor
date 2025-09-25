@@ -1,0 +1,74 @@
+﻿@inject AppState appState
+
+<div class="d-flex align-items-center" @onclick="@switchFormat">
+    @if (appState.Weather != null)
+    {
+        <img class="weather-icon" src="@appState.Weather.Icon" />
+        <div>
+            <div>
+                @if (!appState.Weather.showImperial)
+                {
+                    @CelsiusFormat
+                    <span><sup>o c</sup></span>
+                }
+                else
+                {
+                    @FahrenheitFormat
+                    <span><sup>o f</sup></span>
+                }
+                <i class="bi bi-thermometer bi-@thermometerIcon"></i>
+            </div>
+            <span>@appState.Weather.Description</span>
+        </div>
+    }
+    else
+    {
+        <div>loading...</div>
+    }
+</div>
+
+@code {
+
+    private double CelsiusFormat => appState.Weather == null ? 0 : Math.Truncate(appState.Weather.Celsius);
+    private double FahrenheitFormat => appState.Weather == null ? 0 : Math.Truncate(appState.Weather.Fahrenheit);
+
+    private string thermometerIcon
+    {
+        get
+        {
+            if (appState.Weather == null)
+            {
+                return "thermometer";
+            }
+            else if (appState.Weather.Celsius > 37)
+            {
+                return "thermometer-sun";
+            }
+            else if (appState.Weather.Celsius > 25)
+            {
+                return "thermometer-high";
+            }
+            else if (appState.Weather.Celsius > 15)
+            {
+                return "thermometer-half";
+            }
+            else if (appState.Weather.Celsius > 0)
+            {
+                return "thermometer-low";
+            }
+            return "thermometer-now";
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        appState.OnChange += StateHasChanged;
+        base.OnInitialized();
+    }
+
+    private void switchFormat()
+    {
+        appState.Weather.showImperial = !appState.Weather.showImperial;
+        StateHasChanged();
+    }
+}

@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @inject ImagesService imageService
+@inject WeatherService weatherService
 @inject AppState appState
 
 <HeadContent>
@@ -16,6 +17,44 @@
 <div class="bg-shade @hideShade">
 </div>
 
+<section class="row">
+
+  <div>
+    <div class="col-md-6">
+      @if (appState.Image != null)
+      {
+        <div class="glass-panel on-hover p-3 d-inline-block">
+          <div>@appState.Image.Attribution</div>
+          <small>
+            <a class="text-light" href="@appState.Image.OriginalLink">see on unsplash <i class="bi bi-link"></i></a>
+          </small>
+        </div>
+      }
+    </div>
+  </div>
+
+</section>
+
+<section class="row justify-content-center align-items-center flex-grow-1">
+  <Clock />
+</section>
+
+<section class="row p-3">
+
+  <div class="col-12 glass-panel rounded-pill">
+    <section class="row justify-content-between">
+      <div class="col-4 p-2">
+        <WeatherCard />
+      </div>
+
+      <div class="col-4">
+        User Login
+      </div>
+    </section>
+  </div>
+
+</section>
+
 
 
 @code {
@@ -27,6 +66,7 @@
   {
     appState.OnChange += StateHasChanged;
     await imageService.GetInspiringImage();
+    await weatherService.GetWeather();
     await base.OnInitializedAsync();
   }
 }

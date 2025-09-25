@@ -28,6 +28,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AppState>();
 		builder.Services.AddSingleton(new FetchService(apiSettings));
 		builder.Services.AddScoped<ImagesService>();
+		builder.Services.AddScoped<WeatherService>();
 		// builder.Services.AddScoped<ILogger, Logger>();
 
 #if DEBUG

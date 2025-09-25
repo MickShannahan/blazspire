@@ -11,8 +11,30 @@ public class AppState(IDispatcher dispatcher) : ObservableObject
     get => image;
     set
     {
-      NotifyStateChange();
       SetProperty(ref image, value);
+      NotifyStateChange("Image");
+    }
+  }
+
+  private Weather weather;
+  public Weather Weather
+  {
+    get => weather;
+    set
+    {
+      SetProperty(ref weather, value);
+      NotifyStateChange("Weather");
+    }
+  }
+
+  private Account account;
+  public Account Account
+  {
+    get => account;
+    set
+    {
+      SetProperty(ref account, value);
+      NotifyStateChange("Account");
     }
   }
 
@@ -20,9 +42,9 @@ public class AppState(IDispatcher dispatcher) : ObservableObject
 
   private readonly IDispatcher _dispatcher = dispatcher;
 
-  public void NotifyStateChange()
+  public void NotifyStateChange(string act = "-")
   {
-    Console.WriteLine("[update]");
+    Console.WriteLine($"[update] {act}");
     MainThread.BeginInvokeOnMainThread(() =>
     {
       if (_dispatcher.IsDispatchRequired)

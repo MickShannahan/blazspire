@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-center align-items-center">
+  <div class="fs-3 text-shadow">
+    @TimeOnly.FromDateTime(time)
+  </div>
+</div>
+
+@code {
+
+  private DateTime time = DateTime.Now;
+
+  protected override void OnInitialized()
+  {
+    new Timer(TimeTick, new AutoResetEvent(false), 1000, 1000);
+    base.OnInitialized();
+  }
+
+  private void TimeTick(object stateInfo)
+  {
+    time = DateTime.Now;
+    Console.WriteLine("tick", time);
+    InvokeAsync(() =>
+    {
+      StateHasChanged();
+    });
+  }
+}

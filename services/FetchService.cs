@@ -1,4 +1,6 @@
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 
 public class ApiSettings
@@ -67,6 +69,14 @@ public class FetchService
     {
       throw new InvalidOperationException("Response content is null");
     }
+    return result;
+  }
+
+  public async Task<JsonNode> GetDynamicAsync(string endpoint)
+  {
+    var response = await _httpClient.GetAsync(endpoint);
+    response.EnsureSuccessStatusCode();
+    JsonNode result = await response.Content.ReadFromJsonAsync<JsonNode>() ?? throw new InvalidOperationException("Response is null");
     return result;
   }
 }
