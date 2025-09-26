@@ -1,0 +1,20 @@
+@inject AuthenticationStateProvider authStateProvider
+
+@* <AuthorizeView> *@
+@* <Authorized> *@
+You're In!
+@* </Authorized> *@
+@* <NotAuthorized> *@
+<button @onclick="login" class="btn border rounded-pill">Login</button>
+@* </NotAuthorized> *@
+
+@* </AuthorizeView> *@
+<div>Login</div>
+
+
+@code {
+  private async Task login()
+  {
+    await ((Auth0Provider)authStateProvider).LogInAsync();
+  }
+}

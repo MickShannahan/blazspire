@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using Auth0.OidcClient;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -23,6 +25,21 @@ public static class MauiProgram
 
 		var apiSettings = new ApiSettings();
 		config.GetSection("api").Bind(apiSettings);
+
+		// 🔐 Auth
+		var authSettings = new AuthSettings();
+		config.GetSection("auth").Bind(authSettings);
+
+		builder.Services.AddSingleton(new Auth0Client(new()
+		{
+			Domain = authSettings.Domain,
+			ClientId = authSettings.ClientId,
+			Scope = authSettings.Scope,
+			PostLogoutRedirectUri = authSettings.PostLogoutRedirectUri,
+			RedirectUri = authSettings.RedirectUri
+		}));
+		builder.Services.AddAuthorizationCore();
+		builder.Services.AddScoped<AuthenticationStateProvider, Auth0Provider>();
 
 		builder.Services.AddMauiBlazorWebView();
 		builder.Services.AddSingleton<AppState>();
