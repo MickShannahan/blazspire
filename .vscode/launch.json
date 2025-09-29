@@ -11,6 +11,13 @@
       "console": "internalConsole",
       "justMyCode": false,
       "stopAtEntry": false,
+    },
+    {
+      "name": "📦Windows Machine",
+      "type": "maui",
+      "request": "launch",
+      "preLaunchTask": "dotnet: build",
+      "targetFramework": "net9.0-windows10.0.19041.0",
     }
   ]
 }

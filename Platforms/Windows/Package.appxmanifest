@@ -35,16 +35,14 @@
         BackgroundColor="transparent">
         <uap:DefaultTile Square71x71Logo="$placeholder$.png" Wide310x150Logo="$placeholder$.png" Square310x310Logo="$placeholder$.png" />
         <uap:SplashScreen Image="$placeholder$.png" />
-        <uap:Extension Category="windows.protocol:">
-          <uap:Protocol Name="myapp"/>
-        </uap:Extension>
+       <Extensions>
+      <uap:Extension Category="windows.protocol">
+        <uap:Protocol Name="myapp"/>
+      </uap:Extension>
+    </Extensions>
       </uap:VisualElements>
     </Application>
   </Applications>
 
-  <Capabilities>
-    <Capability Name="internetClient" /> <!-- NOTE: Added this capability to enable network requests for the app -->
-    <rescap:Capability Name="runFullTrust" />
-  </Capabilities>
 
 </Package>

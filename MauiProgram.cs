@@ -29,14 +29,13 @@ public static class MauiProgram
 		// 🔐 Auth
 		var authSettings = new AuthSettings();
 		config.GetSection("auth").Bind(authSettings);
-
 		builder.Services.AddSingleton(new Auth0Client(new()
 		{
 			Domain = authSettings.Domain,
 			ClientId = authSettings.ClientId,
-			Scope = authSettings.Scope,
-			PostLogoutRedirectUri = authSettings.PostLogoutRedirectUri,
-			RedirectUri = authSettings.RedirectUri
+			Scope = "openid profile",
+			PostLogoutRedirectUri = "myapp://callback/",
+			RedirectUri = "myapp://callback/"
 		}));
 		builder.Services.AddAuthorizationCore();
 		builder.Services.AddScoped<AuthenticationStateProvider, Auth0Provider>();

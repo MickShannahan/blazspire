@@ -12,6 +12,7 @@ public class Auth0Provider : AuthenticationStateProvider
   public Auth0Provider(Auth0Client auth0Client)
   {
     this.auth0Client = auth0Client;
+    // Auth0.OidcClient.Platforms.Windows.Activator.Default.CheckRedirectionActivation();
   }
 
   public override Task<AuthenticationState> GetAuthenticationStateAsync() =>
