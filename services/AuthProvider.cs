@@ -20,6 +20,7 @@ public class Auth0Provider : AuthenticationStateProvider
 
   public Task LogInAsync()
   {
+    Console.WriteLine("1.LogInAsync");
     var loginTask = LogInAsyncCore();
     NotifyAuthenticationStateChanged(loginTask);
 
@@ -27,6 +28,7 @@ public class Auth0Provider : AuthenticationStateProvider
 
     async Task<AuthenticationState> LogInAsyncCore()
     {
+      Console.WriteLine("2.LogInAsyncCore");
       var user = await LoginWithAuth0Async();
       currentUser = user;
 
@@ -36,8 +38,12 @@ public class Auth0Provider : AuthenticationStateProvider
 
   private async Task<ClaimsPrincipal> LoginWithAuth0Async()
   {
+    Console.WriteLine("3.LoginWithAuth0Async");
+    // Microsoft.Windows.AppLifecycle.ActivationRegistrationManager.RegisterForProtocolActivation("myapp", "my app title", null);
+    // var loginResult = await WebAuthenticator.AuthenticateAsync("https://mickshanny.us.auth0.com/", "myapp://callback/");
     var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity());
     var loginResult = await auth0Client.LoginAsync();
+    Console.WriteLine(loginResult);
 
     if (!loginResult.IsError)
     {

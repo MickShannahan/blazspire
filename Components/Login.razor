@@ -1,4 +1,8 @@
+@using Microsoft.Extensions.Logging
+@using System.Diagnostics
 @inject AuthenticationStateProvider authStateProvider
+
+@inject ILogger<Login> logger
 
 @* <AuthorizeView> *@
 @* <Authorized> *@
@@ -9,12 +13,35 @@ You're In!
 @* </NotAuthorized> *@
 
 @* </AuthorizeView> *@
-<div>Login</div>
+<div>Login!</div>
+@if (errorMessage != null)
+{
+  <div class="text-danger">@errorMessage</div>
+}
 
 
 @code {
+
+  protected override void OnInitialized()
+  {
+    Console.WriteLine("login load");
+    base.OnInitialized();
+  }
+
+  private string? errorMessage;
   private async Task login()
   {
-    await ((Auth0Provider)authStateProvider).LogInAsync();
+    try
+    {
+      logger.Log(LogLevel.Information, "login happening");
+      Console.WriteLine(". Login");
+      await ((Auth0Provider)authStateProvider).LogInAsync();
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e.Message);
+      Console.WriteLine(e.StackTrace);
+      errorMessage = e.Message;
+    }
   }
 }

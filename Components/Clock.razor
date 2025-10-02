@@ -17,7 +17,6 @@
   private void TimeTick(object stateInfo)
   {
     time = DateTime.Now;
-    Console.WriteLine("tick", time);
     InvokeAsync(() =>
     {
       StateHasChanged();

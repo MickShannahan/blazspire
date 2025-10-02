@@ -47,6 +47,7 @@ public static class MauiProgram
 		builder.Services.AddScoped<WeatherService>();
 		// builder.Services.AddScoped<ILogger, Logger>();
 
+
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
